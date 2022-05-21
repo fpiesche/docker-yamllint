@@ -14,8 +14,6 @@ on:
   pull_request:
   # Runs on Push
   push:
-  # Allow manual runs
-  workflow_dispatch:
 
 
 # -------------------------------------------------------------------------------------------------
