@@ -58,16 +58,16 @@ build:
 		SUFFIX="$$( echo '$(TAG)' | grep -Eo '\-.+' )"; \
 		docker buildx build \
 			$(NO_CACHE) \
-			--platforms linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/amd64 \
+			--platform linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/amd64 \
 			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
 			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
 			--label "org.opencontainers.image.version"="$(TAG)" \
 			--build-arg VERSION=$${VERSION} \
 			-t $(IMAGE) -f $(DIR)/$(FILE)$${SUFFIX} $(DIR); \
 	else \
-		docker build \
+		docker buildx build \
 			$(NO_CACHE) \
-			--platforms linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/amd64 \
+			--platform linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/amd64 \
 			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
 			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
 			--label "org.opencontainers.image.version"="$(TAG)" \
