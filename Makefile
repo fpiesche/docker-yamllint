@@ -56,8 +56,9 @@ build:
 	if echo '$(TAG)' | grep -Eq '^(latest|[.0-9]+?)\-'; then \
 		VERSION="$$( echo '$(TAG)' | grep -Eo '^(latest|[.0-9]+?)' )"; \
 		SUFFIX="$$( echo '$(TAG)' | grep -Eo '\-.+' )"; \
-		docker build \
+		docker buildx build \
 			$(NO_CACHE) \
+			--platforms linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/amd64 \
 			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
 			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
 			--label "org.opencontainers.image.version"="$(TAG)" \
@@ -66,6 +67,7 @@ build:
 	else \
 		docker build \
 			$(NO_CACHE) \
+			--platforms linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/amd64 \
 			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
 			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
 			--label "org.opencontainers.image.version"="$(TAG)" \
